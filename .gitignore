@@ -1,0 +1,5 @@
+# Ignore all files in the .DS_Store directory
+.DS_Store
+
+# Ignore all files in the node_modules directory
+__pycache__/*
