@@ -1,0 +1,25 @@
+credentials:
+  usernames:
+    karthik:
+      email: jsmith@gmail.com
+      name: Karthik Ravichandran
+      password: $2b$12$iohIxbuqcMQf60pBk6VPieGgvQooWc6Yt1LvHHMOHByGl4UHi7Pom
+    aaron:
+      email: rbriggs@gmail.com
+      name: Aaron Son
+      password: $2b$12$F04.C.d6lu3L1GSZygjJl.aL88RJ20x.inbwiPXtPTtzVuJQrJYDO
+    deepa:
+      email: rbriggs@gmail.com
+      name: Deepa
+      password: $2b$12$nPVRH/TJIkSR7TY/eG9H9eC32Lp.QlZ4AA9/5RJuc7eM.JPqKFkVi
+    deepika:
+      email: rbriggs@gmail.com
+      name: Deepika
+      password: $2b$12$rknbAbhvgqBgn0nmPmr6tO2xHKXmTcaqXXI7soS64l.ZNJ4Fiw7cm
+cookie:
+  expiry_days: 0
+  key: some_signature_key # Must be string
+  name: some_cookie_name
+preauthorized:
+  emails:
+  - melsby@gmail.com
