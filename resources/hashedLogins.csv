@@ -1,0 +1,4 @@
+username,sid,salt,passwordhash,
+alice,1001,yJu3yrKxDbZYvWbfR+sFow==,b754a01c6f3fd6c7dd61e6683b456ee55402bb05163cee6da2d1c010e2d0a549
+bob,1002,f3ozaf7QsC/pW8GvKMRJXQ==,ee08ac797f7b851b8d0ff67576d783cfc54a18b160591bf12edc35e065e2c047
+carol,1003,kP4IeM0T/HAVc4dK1Xc/lQ==,8e04bea9e1071632feb6d4e661bb1faaef3be85dc4ffee049ea019a4575f4593
