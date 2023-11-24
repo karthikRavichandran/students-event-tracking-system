@@ -6,6 +6,12 @@ import java.security.SecureRandom;
 
 public class PasswordChecker {
 
+    /**
+     * Hash a given password using SHA-256 and the provided salt.
+     * @param password The plaintext password to be hashed
+     * @param salt The salt to combine with the hash function
+     * @return Returns the hashed version of the password
+     */
     protected static String hashPassword(String password, byte[] salt) {
         String generatedPassword = null;
         try {
@@ -23,6 +29,11 @@ public class PasswordChecker {
         return generatedPassword;
     }
 
+    /**
+     * Generates a random byte array for salting hash functions
+     * @return Hash function to salt
+     * @throws NoSuchAlgorithmException There was a problem with generating a random array
+     */
     public static byte[] generateSalt() throws NoSuchAlgorithmException {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -30,9 +41,15 @@ public class PasswordChecker {
         return salt;
     }
 
+    /**
+     * Validate a password/salt combo with a hashed password
+     * @param password Password to validate
+     * @param salt Salt to combo with the password
+     * @param hashedPassword Intended matching hashed password
+     * @return true if the password/salt matches hashed password
+     */
     public static boolean verifyPassword(String password, byte[] salt, String hashedPassword) {
         return hashedPassword.equals(hashPassword(password, salt));
     }
-
 
 }
