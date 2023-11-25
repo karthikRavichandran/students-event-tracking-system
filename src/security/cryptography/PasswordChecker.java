@@ -3,6 +3,7 @@ package security.cryptography;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 public class PasswordChecker {
 
@@ -51,5 +52,16 @@ public class PasswordChecker {
     public static boolean verifyPassword(String password, byte[] salt, String hashedPassword) {
         return hashedPassword.equals(hashPassword(password, salt));
     }
+    /**
+     * Validate a password/salt combo with a hashed password
+     * @param password Password to validate
+     * @param salt Salt to combo with the password
+     * @param hashedPassword Intended matching hashed password
+     * @return true if the password/salt matches hashed password
+     */
+    public static boolean verifyPassword(String password, String salt, String hashedPassword) {
+        return hashedPassword.equals(hashPassword(password, Base64.getDecoder().decode(salt)));
+    }
+    
 
 }
