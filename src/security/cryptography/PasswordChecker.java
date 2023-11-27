@@ -43,7 +43,7 @@ public class PasswordChecker {
     }
 
     /**
-     * Validate a password/salt combo with a hashed password
+     * Validate a password/salt combo with a hashed password, salt is byte[]
      * @param password Password to validate
      * @param salt Salt to combo with the password
      * @param hashedPassword Intended matching hashed password
@@ -53,7 +53,7 @@ public class PasswordChecker {
         return hashedPassword.equals(hashPassword(password, salt));
     }
     /**
-     * Validate a password/salt combo with a hashed password
+     * Validate a password/salt combo with a hashed password, salt is String
      * @param password Password to validate
      * @param salt Salt to combo with the password
      * @param hashedPassword Intended matching hashed password

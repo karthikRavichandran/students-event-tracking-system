@@ -24,6 +24,9 @@ import security.cryptography.AddUser;
 import security.cryptography.PasswordChecker;
 import utils.CSVReader;
 
+/**
+ * Test cryptographic functions with a testing database
+ */
 public class TestAddUser {
     private String testCSV = "test/testHashedLogins.csv";
 
@@ -42,6 +45,12 @@ public class TestAddUser {
         testFile.delete();
     }
 
+    /**
+     * Try adding users and verifying they are correctly added to the database
+     * @throws FileNotFoundException Sample logins are not provided
+     * @throws IOException CSV file not opened correctly
+     * @throws NoSuchAlgorithmException Problem with generating salts
+     */
     @Test
     public void testAddUser() throws FileNotFoundException, IOException, NoSuchAlgorithmException {
         List<List<String>> logins = CSVReader.readCSV("data/logins.csv");
@@ -57,6 +66,31 @@ public class TestAddUser {
         }
     }
 
+    /**
+     * Try false password/salt combintations
+     * @throws FileNotFoundException Sample logins are not provided
+     * @throws IOException CSV file not opened correctly
+     * @throws NoSuchAlgorithmException Problem with generating salts
+     */
+    @Test
+    public void testInvalidPassword() throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+        byte[] salt = PasswordChecker.generateSalt();
+        byte[] salt2 = PasswordChecker.generateSalt();
+        String password = "password";
+        String trueHash = PasswordChecker.hashPassword(password, salt);
+        String falseHash = PasswordChecker.hashPassword(password, salt2);
+
+        assertFalse(PasswordChecker.verifyPassword(password, salt2, trueHash));
+        assertTrue(PasswordChecker.verifyPassword(password, salt, trueHash));
+        assertFalse(PasswordChecker.verifyPassword("PASSWORD", salt, trueHash));
+    }
+
+    /**
+     * Try creating users with strange passwords (weird characters)
+     * @throws FileNotFoundException Sample logins are not provided
+     * @throws IOException CSV file not opened correctly
+     * @throws NoSuchAlgorithmException Problem with generating salts
+     */
     @Test
     public void testStrangeCharacters() throws FileNotFoundException, IOException, NoSuchAlgorithmException {
         String[] weirdCharacters = new String[]{"\'", "\\", ";", "@", "[]", "\"", ",", "."};
@@ -71,6 +105,12 @@ public class TestAddUser {
         }
     }
 
+    /**
+     * Try adding duplicate users and it should not be accepted
+     * @throws FileNotFoundException Sample logins are not provided
+     * @throws IOException CSV file not opened correctly
+     * @throws NoSuchAlgorithmException Problem with generating salts
+     */
     @Test
     public void testDuplicateUsers() throws FileNotFoundException, IOException, NoSuchAlgorithmException {
         String user = "user";
