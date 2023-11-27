@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThrows;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import security.authentication.LoginService;
+import utils.CSVWriter;
 
 /**
  * Integrated tests that use real username/password combos in our synthetic data
@@ -46,7 +48,6 @@ public class TestLoginService {
     @Test
     public void testLoginSuccess() throws LoginException {
         LoginService loginService = new LoginService();
-        ByteArrayInputStream in = new ByteArrayInputStream("alice\nalicepw".getBytes());
         TestHandler testHandler = new TestHandler();
         testHandler.setTestUsername("alice");
         testHandler.setTestPassword("alicepw");
@@ -57,11 +58,31 @@ public class TestLoginService {
     @Test
     public void testLoginFail() throws LoginException {
         LoginService loginService = new LoginService();
-        ByteArrayInputStream in = new ByteArrayInputStream("alice\nalicepw".getBytes());
         TestHandler testHandler = new TestHandler();
         testHandler.setTestUsername("alice");
         testHandler.setTestPassword("wrong password");
-        Throwable exception = assertThrows(LoginException.class, () -> loginService.login(testHandler));
+        assertThrows(LoginException.class, () -> loginService.login(testHandler));
+    }
+
+    @Test
+    public void createNewUserDuplicateFail() throws LoginException, IOException, NoSuchAlgorithmException {
+        LoginService loginService = new LoginService();
+        TestHandler testHandler = new TestHandler();
+        assertFalse(loginService.addNewUser("alice", "alicepw", "5000"));
+        assertFalse(loginService.addNewUser("alice", "other", "5000"));
+        assertFalse(loginService.addNewUser("other", "other", "1001"));
+    }
+
+    @Test
+    public void createNewUserSuccess() throws LoginException, IOException, NoSuchAlgorithmException {
+        LoginService loginService = new LoginService();
+        TestHandler testHandler = new TestHandler();
+        testHandler.setTestUsername("test");
+        testHandler.setTestPassword("testpw");
+        assertTrue(loginService.addNewUser("test", "testpw", "testid"));
+        assertNotNull(loginService.login(testHandler));
+        CSVWriter.removeRow(-1, "resources/hashedLogins.csv");
+        assertThrows(LoginException.class, () -> loginService.login(testHandler));
     }
 
     /**

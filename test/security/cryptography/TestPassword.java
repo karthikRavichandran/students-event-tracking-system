@@ -25,7 +25,7 @@ import security.cryptography.PasswordChecker;
 import utils.CSVReader;
 
 /**
- * Test cryptographic functions
+ * Test cryptographic functions in PasswordChecker
  */
 public class TestPassword {
 
@@ -44,7 +44,7 @@ public class TestPassword {
         String hash2 = PasswordChecker.hashPassword(password, salt2);
 
         assertTrue(PasswordChecker.verifyPassword(password, salt, hash1));
-        assertTrue(PasswordChecker.verifyPassword(password, salt, hash2));
+        assertTrue(PasswordChecker.verifyPassword(password, salt2, hash2));
     }
 
     /**

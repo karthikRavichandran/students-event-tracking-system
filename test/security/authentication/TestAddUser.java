@@ -25,7 +25,7 @@ import security.cryptography.PasswordChecker;
 import utils.CSVReader;
 
 /**
- * Test cryptographic functions with a testing database
+ * Test user addition with a testing database
  */
 public class TestAddUser {
     private String testCSV = "test/testHashedLogins.csv";

@@ -13,7 +13,7 @@ public class PasswordChecker {
      * @param salt The salt to combine with the hash function
      * @return Returns the hashed version of the password
      */
-    protected static String hashPassword(String password, byte[] salt) {
+    public static String hashPassword(String password, byte[] salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
