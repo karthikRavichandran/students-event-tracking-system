@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import security.cryptography.PasswordChecker;
 import utils.CSVReader;
+import utils.CSVWriter;
 
 /**
  * Add a new user to the login database using this class.
@@ -67,7 +68,7 @@ public class AddUser {
         salt = PasswordChecker.generateSalt(); 
         newUser[2] = Base64.getEncoder().encodeToString(salt);
         newUser[3] = PasswordChecker.hashPassword(password, salt);
-        appendCSV(newUser);
+        CSVWriter.appendCSV(newUser);
         return true;
     }
 
@@ -84,49 +85,5 @@ public class AddUser {
             }
         }
         return true;
-    }
-
-    /**
-     * Convert string array to csv format
-     * Created using tutorial: https://www.baeldung.com/java-csv
-     * @param data String array to be converted to line for csv file
-     * @return String as comma concatenated version of data with special characters escaped
-     */
-    private String convertToCSV(String[] data) {
-        return Stream.of(data)
-        .map(this::escapeSpecialCharacters)
-        .collect(Collectors.joining(","));
-    }
-
-    /**
-     * Add line to CSV
-     * Created using tutorial: https://www.baeldung.com/java-csv
-     * @param data String array to be converted to line for csv file
-     * @return String as comma concatenated version of data with special characters escaped
-     */
-    private void appendCSV(String[] data) throws IOException {
-        File csvOutputFile = new File(CSV_FILE_NAME);
-        try (PrintWriter pw = new PrintWriter(new FileOutputStream(csvOutputFile, true))) {
-            String newLine = convertToCSV(data);
-            pw.println(newLine);
-        }
-    }
-
-    /**
-     * Remove special characters from string by ecsaping them
-     * Created using tutorial: https://www.baeldung.com/java-csv
-     * @param data String to be formatted
-     * @return Formatted version of string
-     */
-    private String escapeSpecialCharacters(String data) {
-        if (data == null) {
-            throw new IllegalArgumentException("Input data cannot be null");
-        }
-        String escapedData = data.replaceAll("\\R", " ");
-        if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-            data = data.replace("\"", "\"\"");
-            escapedData = "\"" + data + "\"";
-        }
-        return escapedData;
     }
 }
