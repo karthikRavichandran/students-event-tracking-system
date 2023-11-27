@@ -3,6 +3,10 @@ import javax.security.auth.callback.*;
 import java.io.Console;
 import java.io.IOException;
 
+/**
+ * Based on tutorial: https://www.baeldung.com/java-authentication-authorization-service
+ * Handler class which takes in console input for username and password
+ */
 public class ConsoleCallbackHandler implements CallbackHandler {
 
     @Override

@@ -15,6 +15,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Based on tutorial: https://www.baeldung.com/java-authentication-authorization-service
+ * Class that tries to log in a user based on the stored login database
+ */
 public class Login implements LoginModule {
 
     private Subject subject;
@@ -26,6 +30,12 @@ public class Login implements LoginModule {
 
     private String CSV_FILE_NAME = "resources/hashedLogins.csv";
 
+    /**
+     * Reads the login database and gets corresponding username, sid, salt, password hash as String
+     * @param username username of user to read in
+     * @return List of 4 {username, sid, salt, passwordhash}
+     * @throws FileNotFoundException Unable to read hashed login database
+     */
     private List<String> getDatabaseCred (String username) throws FileNotFoundException {
         List<List<String>> loginData = CSVReader.readCSV(CSV_FILE_NAME);
         for (int i = 1; i < loginData.size(); i++) {
