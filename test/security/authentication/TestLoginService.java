@@ -36,7 +36,7 @@ import security.authentication.LoginService;
 /**
  * Integrated tests that use real username/password combos in our synthetic data
  */
-public class TestLogin {
+public class TestLoginService {
 
     @Before
     public void setup() {

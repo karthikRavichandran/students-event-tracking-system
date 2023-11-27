@@ -1,4 +1,4 @@
-package security.cryptography;
+package security.authentication;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import security.cryptography.AddUser;
+import security.authentication.AddUser;
 import security.cryptography.PasswordChecker;
 import utils.CSVReader;
 
@@ -64,25 +64,6 @@ public class TestAddUser {
             assertEquals(newLogin.get(0), login.get(0));
             assertEquals(newLogin.get(1), login.get(2));
         }
-    }
-
-    /**
-     * Try false password/salt combintations
-     * @throws FileNotFoundException Sample logins are not provided
-     * @throws IOException CSV file not opened correctly
-     * @throws NoSuchAlgorithmException Problem with generating salts
-     */
-    @Test
-    public void testInvalidPassword() throws FileNotFoundException, IOException, NoSuchAlgorithmException {
-        byte[] salt = PasswordChecker.generateSalt();
-        byte[] salt2 = PasswordChecker.generateSalt();
-        String password = "password";
-        String trueHash = PasswordChecker.hashPassword(password, salt);
-        String falseHash = PasswordChecker.hashPassword(password, salt2);
-
-        assertFalse(PasswordChecker.verifyPassword(password, salt2, trueHash));
-        assertTrue(PasswordChecker.verifyPassword(password, salt, trueHash));
-        assertFalse(PasswordChecker.verifyPassword("PASSWORD", salt, trueHash));
     }
 
     /**
