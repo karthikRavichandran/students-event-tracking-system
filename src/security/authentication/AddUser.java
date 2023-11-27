@@ -68,7 +68,7 @@ public class AddUser {
         salt = PasswordChecker.generateSalt(); 
         newUser[2] = Base64.getEncoder().encodeToString(salt);
         newUser[3] = PasswordChecker.hashPassword(password, salt);
-        CSVWriter.appendCSV(newUser);
+        CSVWriter.appendCSV(newUser, CSV_FILE_NAME);
         return true;
     }
 
