@@ -12,8 +12,9 @@ import random
 import pandas as pd
 import streamlit as st
 from dashboard import dashboard
-from alerts import alerts
+from gradescope import gradescope
 from grade_piazza import grade_piazza
+from piazza import grade_piazza
 
 # st.set_page_config(layout="wide")
 
@@ -21,7 +22,7 @@ def menu():
     if 'choose' not in st.session_state:
         st.session_state['choose'] = None
     with st.sidebar:
-        st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Alerts", "Grade/Piazza", "Course Info", "Contact"],
+        st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Gradescope", "Grade/Piazza", "Course Info", "Contact"],
                                  icons=['house', 'camera fill', 'kanban', 'book','person lines fill'],
                                  menu_icon="app-indicator", default_index=0,
                                  styles={
@@ -35,7 +36,7 @@ def menu():
     if st.session_state['choose'] == "Dashboard":
         dashboard()
 
-    elif st.session_state['choose'] == 'Alerts':
-        alerts()
+    elif st.session_state['choose'] == 'Gradescope':
+        gradescope()
     elif st.session_state['choose'] == 'Grade/Piazza':
         grade_piazza()

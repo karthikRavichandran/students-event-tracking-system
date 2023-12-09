@@ -13,11 +13,6 @@ with open('./config.yaml') as file:
 
 # credentials – The dictionary of usernames, names, passwords, and emails
 cookies = {"expiry_days":30, "key": "cook", "name": "cs520"}
-# authenticator = stauth.Authenticate({"emails":['jsmith@gmail.com', 'rbriggs@gmail.com'],
-#                                      "names": ['John Smith', 'Rebecca Briggs'],
-#                                      "passwords": ['abc', 'def'],
-#                                      "usernames": ['jsmith', 'rbriggs']}, key ='something',
-#                                     cookie_name='cs520')
 
 
 authenticator = stauth.Authenticate(

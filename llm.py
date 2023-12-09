@@ -5,10 +5,10 @@ import openai
 import random
 import os
 
-DashB = pd.DataFrame({"Courses": ['CS520', 'CS646', 'CS670', 'CS520'],
+DashB = pd.DataFrame({"Courses": ['math314', 'lang101', 'phys999', 'math314'],
                       "Description": ['HW1', 'Project Proposal', 'Quiz 3', 'Mid-Term'],
-                      "Summary": ['Git commands and collaborations', 'Understanding LLM and project proposal',
-                                  'Testing and Validation', 'Chapter 1 to Chapter 7'],
+                      "Summary": ['Calculus and partial derivative', 'Understanding language syntax',
+                                  'learning about escape velocity', 'Chapter 1 to Chapter 7'],
                       "Due in (days)": [3, 7, 4, 5],
                       "Avg. Scores (%)": ['89', '90', '78', '89'],
                       "Critical Level": ['High', 'Low', 'Very-High', 'Low'],

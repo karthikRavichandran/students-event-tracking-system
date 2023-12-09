@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import random
 from llm import generate_summary, get_prompts
-from alerts import alerts
+from gradescope import gradescope
 def dashboard():
-    DashB = pd.DataFrame({"Event": ['CS520', 'CS646', 'CS670', 'CS520'],
+    DashB = pd.DataFrame({"Courses": ['math314', 'lang101', 'phys999', 'math314'],
                           "Description": ['HW1', 'Project Proposal', 'Quiz 3', 'Mid-Term'],
-                          "Summary": ['Git commands and collaborations', 'Understanding LLM and project proposal',
-                                      'Testing and Validation', 'Chapter 1 to Chapter 7'],
-                          "Due in": [3, 7, 4, 5],
+                          "Summary": ['Calculus and partial derivative', 'Understanding language syntax',
+                                      'learning about escape velocity', 'Chapter 1 to Chapter 7'],
+                          "Due in (days)": [3, 7, 4, 5],
                           "Avg. Scores (%)": ['89', '90', '78', '89'],
                           "Critical Level": ['High', 'Low', 'Very-High', 'Low'],
                           "Grade progress": [[random.randint(50, 100) for _ in range(10)] for _ in range(4)]})
@@ -51,25 +51,20 @@ def dashboard():
     st.subheader('_Advice from AI_', divider='rainbow')
 
 
-    # txt = st.caption(f"{generate_summary(DashB, prompt_user=get_prompts(field='advice')[1])}"
-    #                  )
+    # txt = st.caption(f"{generate_summary(DashB, prompt_user=get_prompts(field='advice')[1])}")
     st.caption(
     '''
-    1. For CS520, focus on mastering git commands and collaborations in order to score high. Make sure to also study chapters 1 to 7 for the mid-term and aim for a low critical grade progress.
+    1. Math314: Make sure to allocate enough time to review the material from Chapter 1 to Chapter 7 (5 days) for the mid-term exam, as the critical level is quite high.
+    2. Lang101: Spend time to brainstorm ideas and create a comprehensive project proposal as the critical level is low.
+    3. Phys999: Spend time to review the material related to escape velocity (4 days) as the critical level is very high.
 
-    2. For CS646, work on understanding LLM and developing your project proposal. Make sure the project proposal is well-crafted and aim for a low critical grade progress.
-
-    3. For CS670, focus on learning the concepts of testing and validation in order to score high in the quiz. Make sure to aim for a very-high critical grade progress.
     ''')
 
     st.subheader('_Important Piazza Discussion_  :blue[Summary] :coffee:', divider='rainbow')
     txt = st.caption(
         '''
-        CS 520 - Subject: More details about the expections for each of the 6 new test cases
-
-        Discussion: It's is mention in Hints for homework 3, that 
-            The second test case (add transaction fails its input validtion) may either be the Model or the View.
-            The remaining 3 test cases may be the model, view, or controller.
-            I am a bit confused now how can I test via model, do we need to pass a variable and set error message to it?
-            Also can we get an aggregated post  which would describe what every unit test is expecting ie whether we are expected to test Model/View/Controller or any combination of them?'''
+        lang101 - Subject: Does anyone have insights or opinions on its definition in the readings we've covered so far?
+        
+        Discussion: Hello everyone! I've been pondering over the use of the word 'shall' in Old English texts. 
+        It seems to carry different meanings in various contexts. Does anyone have insights or opinions on its definition in the readings we've covered so far?"'''
     )
