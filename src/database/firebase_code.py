@@ -1,4 +1,4 @@
-//Python code for implementing the modularity feature and to download the structured data from Firestore DB in a .csv format.
+# Python code for implementing the modularity feature and to download the structured data from Firestore DB in a .csv format.
  
 import csv
 from firebase_admin import credentials, firestore, initialize_app

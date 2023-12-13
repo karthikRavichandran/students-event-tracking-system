@@ -1,13 +1,13 @@
 import streamlit as st
-from read_syntatic_data import convert_piazzajson_to_csv
-from model.model import Model
+from database.dataloader import Dataloader
 import random
 import pandas as pd
+
 class View:
 
     def __init__(self, student_id):
         self.student_id = student_id
-        self.model = Model(self.student_id)
+        self.dataloader = Dataloader(self.student_id)
 
     def piazza_LLM_sample_caption(self, course):
         if course == 'LANG101':
@@ -46,7 +46,7 @@ class View:
 
     def piazza_display(self,json_file_path='./data/piazza/lang101.json'):
         # json_file_path = './data/piazza/lang101.json'
-        df = self.model.convert_piazzajson_to_csv(json_file_path)
+        df = self.dataloader.convert_piazzajson_to_csv(json_file_path)
         # c1, c2 = st.columns((2, 1))
         st.caption('Homework Description and due date')
         st.dataframe(
@@ -138,7 +138,7 @@ class View:
         )
 
     def gradescope_display(self, json_file_path = './data/gradescope/math314.json'):
-        hws, stats, score = self.model.get_grade_scope_data(json_file_path)
+        hws, stats, score = self.dataloader.get_grade_scope_data(json_file_path)
         # c1, c2 = st.columns((2, 1))
         st.caption('Homework Description and due date')
         st.dataframe(
