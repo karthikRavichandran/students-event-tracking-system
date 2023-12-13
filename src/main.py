@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 # hashed_passwords = stauth.Hasher(['karthikcs520', 'aaroncs520', 'deepacs520', 'deepikacs520']).generate()
 # print(hashed_passwords)
 
-with open('../config.yaml') as file:
+with open('../data/config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
 # credentials – The dictionary of usernames, names, passwords, and emails
