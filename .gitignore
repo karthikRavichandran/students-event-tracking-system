@@ -2,7 +2,7 @@
 .DS_Store
 
 # Ignore all files in the node_modules directory
-__pycache__/*
+*/__pycache__
 data/.ipynb_checkpoints/*
 data/*/.ipynb_checkpoints/*
 .ipynb_checkpoints/*
