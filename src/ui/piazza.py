@@ -42,7 +42,7 @@ class Piazza(Page):
         # with c1:
 
     def piazza_LLM_sample_caption(self, course):
-        if course == 'LANG101':
+        if course == 'lang101':
             sample_caption = '''
                 1. Poster Alice asked for excused absence from class due to illness and received a positive response from the professor.
                 2. Poster Alice asked for clarification on Homework 1 Question 2 and received help from the professor and Bob.
@@ -52,7 +52,7 @@ class Piazza(Page):
                 sample_caption
             )
 
-        if course == 'MATH314':
+        if course == 'math314':
             sample_caption = '''
         General Course Questions: Alice kickstarted the semester by asking for general questions about the course content, schedule, and expectations. Bob asked about the balance between theory and application in the course, and the professor clarified that a balance between theory and application would be struck throughout the course, with an emphasis on practical applications.
 
