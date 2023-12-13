@@ -14,8 +14,8 @@ class Menu(Page):
         if 'choose' not in st.session_state:
             st.session_state['choose'] = None
         with st.sidebar:
-            st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Gradescope", "Piazza", "Course Info", "Contact"],
-                                    icons=['house', 'camera fill', 'kanban', 'book','person lines fill'],
+            st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Moodle", "Gradescope", "Piazza", "Course Info", "Student Info"],
+                                    icons=['house', 'book', 'camera fill', 'kanban', 'info-circle','person lines fill'],
                                     menu_icon="app-indicator", default_index=0,
                                     styles={
                     "container": {"padding": "5!important", "background-color": "#fafafa"},

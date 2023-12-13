@@ -34,7 +34,7 @@ class Authenticator:
             st.write(f'Welcome *{st.session_state["name"]}*')
             # if user give right Username and password, the line called menu()
             name = st.session_state["name"]
-            student_info = Dataloader.get_student_info()
+            student_info = Dataloader.get_all_student_info()
             return student_info[(student_info['first name'] == name.split()[0]) 
                                      & (student_info['last name'] == name.split()[1])]['student id']
         elif st.session_state["authentication_status"] is False:

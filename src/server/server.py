@@ -4,6 +4,9 @@ from ui.menu import Menu
 from ui.gradescope import Gradescope
 from ui.dashboard import Dashboard
 from ui.piazza import Piazza
+from ui.course_info import CourseInfo
+from ui.student_info import StudentInfo
+from ui.moodle import Moodle
 import os
 
 class Server:
@@ -31,6 +34,9 @@ class Server:
         self.piazza = Piazza(self.courses, self.piazza_data)
         self.gradescope = Gradescope(self.courses, self.gradescope_data)
         self.dashboard = Dashboard()
+        self.course_info = CourseInfo(self.courses, self.moodle_data)
+        self.student_info = StudentInfo(self.dataloader.get_student_info())
+        self.moodle = Moodle(self.courses, self.moodle_data)
         self.menu.display()
         self.display_loop()
 
@@ -41,5 +47,9 @@ class Server:
             self.gradescope.display()
         elif st.session_state['choose'] == 'Piazza':
             self.piazza.display()
-
-    
+        elif st.session_state['choose'] == 'Course Info':
+            self.course_info.display()
+        elif st.session_state['choose'] == 'Student Info':
+            self.student_info.display()
+        elif st.session_state['choose'] == 'Moodle':
+            self.moodle.display()

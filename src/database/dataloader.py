@@ -6,8 +6,12 @@ class Dataloader:
     def __init__(self, student_id):
         self.student_id = student_id
 
-    def get_student_info():
+    def get_all_student_info():
         return pd.read_csv("../data/students.csv")
+    
+    def get_student_info(self):
+        out = pd.read_csv("../data/students.csv")
+        return out[out["student id"] == self.student_id]
     
     def get_course_enrollment(json_file_path):
         with open(json_file_path, 'r') as file:
