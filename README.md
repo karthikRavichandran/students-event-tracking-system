@@ -11,9 +11,12 @@ Our project will be split into 5 parts, using a basic client-server architecture
 4. The data access layer will be written using Firebase and store various tables of student information, piazza posts, etc.
 5. We will generate synthetic data in JSON files using ChatGPT or some other language model.
 ### Timeline
+```
 Week of 10/30: Finish design
 Week of 11/06: Generate synthetic data, implement UI, begin implementation of database, LLM
 Week of 11/13: Finish implementation of database, LLM, link with server
 Week of 11/20: Refine server, finish implementation of functionality, add security components
 Week of 11/27: Testing
 Week of 12/04: Testing
+Week of 12/10: Refactoring, Documentation and Testing.
+```
