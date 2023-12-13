@@ -1,7 +1,11 @@
 import streamlit as st
+import sys
+sys.path.append('../')
 import pandas as pd
 import random
+import time
 from ui.page import Page
+from server.llm import generate_summary, get_prompts
 
 class Dashboard(Page):
 
@@ -54,15 +58,16 @@ class Dashboard(Page):
             st.session_state.choose = 'Alerts'
 
         st.subheader('_Advice from AI_', divider='rainbow')
-
-        # txt = st.caption(f"{generate_summary(DashB, prompt_user=get_prompts(field='advice')[1])}")
-        st.caption(
-            '''
-            1. Math314: Make sure to allocate enough time to review the material from Chapter 1 to Chapter 7 (5 days) for the mid-term exam, as the critical level is quite high.
-            2. Lang101: Spend time to brainstorm ideas and create a comprehensive project proposal as the critical level is low.
-            3. Phys999: Spend time to review the material related to escape velocity (4 days) as the critical level is very high.
-    
-            ''')
+        with st.spinner('Wait for AI output...'):
+            time.sleep(60)
+            txt = st.caption(f"{generate_summary(DashB, prompt_user=get_prompts(field='advice')[1])}")
+        # st.caption(
+        #     '''
+        #     1. Math314: Make sure to allocate enough time to review the material from Chapter 1 to Chapter 7 (5 days) for the mid-term exam, as the critical level is quite high.
+        #     2. Lang101: Spend time to brainstorm ideas and create a comprehensive project proposal as the critical level is low.
+        #     3. Phys999: Spend time to review the material related to escape velocity (4 days) as the critical level is very high.
+        #
+        #     ''')
 
         st.subheader('_Important Piazza Discussion_  :blue[Summary] :coffee:', divider='rainbow')
         txt = st.caption(

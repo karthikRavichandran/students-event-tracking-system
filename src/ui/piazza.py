@@ -3,6 +3,8 @@ import sys
 sys.path.append('../')
 # from server.llm import generate_summary, get_prompts
 from ui.page import Page
+from server.llm import generate_summary
+import time
 
 class Piazza(Page):
 
@@ -13,10 +15,10 @@ class Piazza(Page):
     def display(self):
         for course in self.courses:
             st.subheader(f'_Discussion from piazza for {course}_  :orange[TOP Discussions] :coffee:',divider='rainbow')
-            self.display_course(self.dfs[course])
-            self.piazza_LLM_sample_caption(course=course) # TODO
+            self.display_course(self.dfs[course], course)
+             # TODO
 
-    def display_course(self, df):
+    def display_course(self, df, course):
         st.caption('Homework Description and due date')
         st.dataframe(
             df,
@@ -37,8 +39,11 @@ class Piazza(Page):
             height=20 * df.shape[0]
         )
 
-        # txt = st.caption(f"{generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
         st.caption("AI Summary")
+        with st.spinner('Wait for AI output...'):
+            time.sleep(60)
+            txt = st.caption(f"{generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
+        # self.piazza_LLM_sample_caption(course=course)
         # with c1:
 
     def piazza_LLM_sample_caption(self, course):
