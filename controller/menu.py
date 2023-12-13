@@ -1,28 +1,20 @@
-import streamlit as st
 from streamlit_option_menu import option_menu
-import streamlit.components.v1 as html
-from  PIL import Image
-import numpy as np
-# import cv2
-import pandas as pd
-# from st_aggrid import AgGrid
-# import plotly.express as px
-import io
-import random
-import pandas as pd
+import sys
+sys.path.append('../')
 import streamlit as st
-from dashboard import dashboard
-from gradescope import gradescope
-from grade_piazza import grade_piazza
-from piazza import grade_piazza
+from model.gradescope import gradescope
+from model.piazza import grade_piazza
+from view.view import View
 
 # st.set_page_config(layout="wide")
 
+
 def menu():
+    view = View(student_id=1001)
     if 'choose' not in st.session_state:
         st.session_state['choose'] = None
     with st.sidebar:
-        st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Gradescope", "Grade/Piazza", "Course Info", "Contact"],
+        st.session_state['choose'] = option_menu("Student Event Tracker", ["Dashboard", "Gradescope", "Piazza", "Course Info", "Contact"],
                                  icons=['house', 'camera fill', 'kanban', 'book','person lines fill'],
                                  menu_icon="app-indicator", default_index=0,
                                  styles={
@@ -34,9 +26,10 @@ def menu():
             )
 
     if st.session_state['choose'] == "Dashboard":
-        dashboard()
+        view.dashboard()
 
     elif st.session_state['choose'] == 'Gradescope':
         gradescope()
-    elif st.session_state['choose'] == 'Grade/Piazza':
+    elif st.session_state['choose'] == 'Piazza':
+        # model = Model(student_id=1001)
         grade_piazza()
