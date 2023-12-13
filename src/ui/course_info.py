@@ -18,6 +18,6 @@ class CourseInfo(Page):
         description = data[0]
         st.caption(description["Course Title"])
         st.caption("Syllabus")
-        st.text(description["Course Syllabus"])
+        st.markdown(description["Course Syllabus"])
         st.caption("Grade Breakdown")
         st.table(description["Grade Breakdown"])
