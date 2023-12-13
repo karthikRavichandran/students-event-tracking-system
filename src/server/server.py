@@ -10,8 +10,11 @@ class Server:
     
     def __init__(self, student_id):
         self.student_id = student_id
+        self.all_courses = ["lang101", "math314", "phys999"]
+        self.courses = [x for x in self.all_courses if str(self.student_id) in Dataloader.get_course_enrollment(f"../data/moodle/{x}.json")]
+        
         self.dataloader = Dataloader(self.student_id)
-        self.courses = ["lang101", "math314", "phys999"]
+        
         self.menu = Menu()
         self.piazza_data = {course : 
                             (self.dataloader.get_piazza_df(f"../data/piazza/{course}.json") 
@@ -28,7 +31,6 @@ class Server:
         self.piazza = Piazza(self.courses, self.piazza_data)
         self.gradescope = Gradescope(self.courses, self.gradescope_data)
         self.dashboard = Dashboard()
-
         self.menu.display()
         self.display_loop()
 
@@ -39,4 +41,5 @@ class Server:
             self.gradescope.display()
         elif st.session_state['choose'] == 'Piazza':
             self.piazza.display()
+
     

@@ -6,6 +6,14 @@ class Dataloader:
     def __init__(self, student_id):
         self.student_id = student_id
 
+    def get_student_info():
+        return pd.read_csv("../data/students.csv")
+    
+    def get_course_enrollment(json_file_path):
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+        return data["Enrolled Students"]
+
     def get_moodle_data(self, json_file_path):
 
         keys_to_keep = ['Course Title', 'Course Syllabus', 'Grade Breakdown']

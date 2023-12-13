@@ -1,21 +1,17 @@
 credentials:
   usernames:
-    karthik:
-      email: jsmith@gmail.com
-      name: Karthik Ravichandran
-      password: $2b$12$iohIxbuqcMQf60pBk6VPieGgvQooWc6Yt1LvHHMOHByGl4UHi7Pom
-    aaron:
-      email: rbriggs@gmail.com
-      name: Aaron Son
-      password: $2b$12$F04.C.d6lu3L1GSZygjJl.aL88RJ20x.inbwiPXtPTtzVuJQrJYDO
-    deepa:
-      email: rbriggs@gmail.com
-      name: Deepa
-      password: $2b$12$nPVRH/TJIkSR7TY/eG9H9eC32Lp.QlZ4AA9/5RJuc7eM.JPqKFkVi
-    deepika:
-      email: rbriggs@gmail.com
-      name: Deepika
-      password: $2b$12$rknbAbhvgqBgn0nmPmr6tO2xHKXmTcaqXXI7soS64l.ZNJ4Fiw7cm
+    alice:
+      email: alice@abc.org
+      name: Alice Aardvark
+      password: $2b$12$QKE5rdhxzGNT4Qij6mZT6u1deSA0FTw5WNHoCMA2B96ihdqQh2pJK
+    bob:
+      email: bob@abc.org
+      name: Bob Bird
+      password: $2b$12$fqRFNRNbY8oq9607dyw8lecieENXHfzC7BDD0GEb05y.BsGkh9XnK
+    carol:
+      email: carol@abc.org
+      name: Carol Cat
+      password: $2b$12$HiH1Xi07qPV6UFkaGNKmYe8gwrrKtT5i1uNxcgfwuAcrH8FifinyW
 cookie:
   expiry_days: 0
   key: some_signature_key # Must be string
