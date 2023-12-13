@@ -10,9 +10,9 @@ class CourseInfo(Page):
         self.data = data
 
     def display(self):
-        for course in self.courses:
-            st.subheader(f'_Class {course} Information_', divider='rainbow')
-            self.display_course(self.data[course])
+        option = st.selectbox('Select the course to view the details',self.courses, disabled=False)
+        st.subheader(f'_Class {option} Information_', divider='rainbow')
+        self.display_course(self.data[option])
 
     def display_course(self, data):
         description = data[0]
