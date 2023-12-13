@@ -29,7 +29,7 @@ class Dataloader:
 
         return data_for_llm, moodle_df, summary_of_moodle_grade, score
 
-    def get_grade_scope_data(self, json_file_path):
+    def get_gradescope_data(self, json_file_path):
 
         with open(json_file_path, 'r') as file:
             data = json.load(file)
@@ -41,7 +41,7 @@ class Dataloader:
         score = pd.DataFrame(data['Grades']).T.filter([f'{self.student_id}'], axis=1) * 100
         return hws, stats, score
 
-    def convert_piazzajson_to_csv(self, json_file_path):
+    def get_piazza_df(self, json_file_path):
         with open(json_file_path, 'r') as file:
             data = json.load(file)
         title = []

@@ -2,7 +2,7 @@ import yaml
 from yaml.loader import SafeLoader
 import streamlit as st
 import streamlit_authenticator as stauth
-from ui.menu import menu
+from server.server import Server
 st.set_page_config(layout="wide")
 
 # hashed_passwords = stauth.Hasher(['karthikcs520', 'aaroncs520', 'deepacs520', 'deepikacs520']).generate()
@@ -31,7 +31,7 @@ if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main', key='unique_key')
     st.write(f'Welcome *{st.session_state["name"]}*')
     # if user give right Username and password, the line called menu()
-    menu()
+    server = Server(1001)
 elif st.session_state["authentication_status"] is False:
     # Error Message is displayed in UI if User credentials didn't match.
     st.error('Username/password is incorrect')
