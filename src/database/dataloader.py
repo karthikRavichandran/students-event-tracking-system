@@ -103,3 +103,7 @@ class Dataloader:
         })
 
         return df
+    def get_dashboard_data(self, json_file_path):
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+        return data

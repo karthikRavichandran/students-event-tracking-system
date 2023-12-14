@@ -19,6 +19,9 @@ class Server:
         self.dataloader = Dataloader(self.student_id)
         
         self.menu = Menu()
+        self.dashboard_data = self.dataloader.get_dashboard_data(f"../data/dashboard/dash_board_data.json")\
+                             if os.path.exists(f"../data/dashboard/dash_board_data.json") else None
+
         self.piazza_data = {course : 
                             (self.dataloader.get_piazza_df(f"../data/piazza/{course}.json") 
                              if os.path.exists(f"../data/piazza/{course}.json") else None)
@@ -33,7 +36,7 @@ class Server:
                             for course in self.courses}
         self.piazza = Piazza(self.courses, self.piazza_data)
         self.gradescope = Gradescope(self.courses, self.gradescope_data)
-        self.dashboard = Dashboard()
+        self.dashboard = Dashboard(self.dashboard_data[str(self.student_id)])
         self.course_info = CourseInfo(self.courses, self.moodle_data)
         self.student_info = StudentInfo(self.dataloader.get_student_info())
         self.moodle = Moodle(self.courses, self.moodle_data)

@@ -9,26 +9,18 @@ from server.llm import generate_summary, get_prompts
 
 class Dashboard(Page):
 
-    def __init__(self):
-        pass
+    def __init__(self, dashboard_data):
+        self.DashB = pd.DataFrame(dashboard_data)
+
 
     def display(self, ):
-        DashB = pd.DataFrame({"Courses": ['math314', 'lang101', 'phys999', 'math314'],
-                              "Description": ['HW1', 'Project Proposal', 'Quiz 3', 'Mid-Term'],
-                              "Summary": ['Calculus and partial derivative', 'Understanding language syntax',
-                                          'learning about escape velocity', 'Chapter 1 to Chapter 7'],
-                              "Due in (days)": [3, 7, 4, 5],
-                              "Avg. Scores (%)": ['89', '90', '78', '89'],
-                              "Critical Level": ['High', 'Low', 'Very-High', 'Low'],
-                              "Grade progress": [[random.randint(50, 100) for _ in range(10)] for _ in range(4)]})
 
-        # Use the full page instead of a narrow central column
 
         # Space out the maps so the first one is 2x the size of the other three
         # c1, c2, c3, c4 = st.columns((2, 1, 1, 1))
         st.subheader('Analytics :chart_with_upwards_trend:')
         st.dataframe(
-            DashB,
+            self.DashB,
             column_config={
                 "Done": st.column_config.CheckboxColumn(
                     "Done",
@@ -59,8 +51,8 @@ class Dashboard(Page):
 
         st.subheader('_Advice from AI_', divider='rainbow')
         with st.spinner('Wait for AI output...'):
-            time.sleep(60)
-            txt = st.caption(f"{generate_summary(DashB, prompt_user=get_prompts(field='advice')[1])}")
+            time.sleep(30)
+            txt = st.caption(f"{generate_summary(self.DashB, prompt_user=get_prompts(field='advice')[1])}")
         # st.caption(
         #     '''
         #     1. Math314: Make sure to allocate enough time to review the material from Chapter 1 to Chapter 7 (5 days) for the mid-term exam, as the critical level is quite high.
