@@ -1,11 +1,13 @@
 import unittest
 import json
-from dataloader import Dataloader
+import sys
+sys.path.append('../')
+from src.database.dataloader import Dataloader
 
 import unittest
 import os
 import requests
-
+import pandas as pd
 import unittest
 from selenium import webdriver
 
@@ -14,28 +16,28 @@ from selenium import webdriver
 class TestDataloader(unittest.TestCase):
 
     def setUp(self):
-        self.dataloader = Dataloader(student_id='deepa')
+        self.dataloader = Dataloader(student_id=1001)
 
     def test_get_moodle_data_columns(self):
-        json_file_path = 'moodle_data.json'
+        json_file_path = '../data/moodle/lang101.json'
         _, moodle_df, _, _ = self.dataloader.get_moodle_data(json_file_path)
 
-        expected_columns = ['Course Title', 'Course Syllabus', 'Grade Breakdown']
+        expected_columns = ['Title', 'Description', 'Due Date']
         actual_columns = list(moodle_df.columns)
 
         self.assertEqual(expected_columns, actual_columns, "Columns in moodle_df are not as expected")
 
     def test_get_gradescope_data_columns(self):
-        json_file_path = 'gradescope_data.json'
+        json_file_path = '../data/gradescope/math314.json'
         hws, _, _ = self.dataloader.get_gradescope_data(json_file_path)
 
-        expected_columns = ['expected_column_1', 'expected_column_2', ...]  # Replace with expected columns
+        expected_columns = ['Title', 'Description', 'Due Date']  # Replace with expected columns
         actual_columns = list(hws.columns)
 
         self.assertEqual(expected_columns, actual_columns, "Columns in hws are not as expected")
 
     def test_get_piazza_df_columns(self):
-        json_file_path = 'piazza_data.json'
+        json_file_path = '../data/piazza/math314.json'
         piazza_df = self.dataloader.get_piazza_df(json_file_path)
 
         expected_columns = ['title', 'topic', 'poster', 'poster_date', 'body', 'follow_up_1', 'follow_up_2',
@@ -52,11 +54,15 @@ class TestOpenAIAPI(unittest.TestCase):
         # Set your OpenAI GPT-3.5 API key
         self.api_key = os.environ['OPENAI_API_KEY']
         self.openai_endpoint = 'https://api.openai.com/v1/engines/text-davinci-003/completions'
-
+        self.student_id=1001
+        self.dataloader = Dataloader(student_id=self.student_id)
     def test_openai_api_call(self):
         # Define the prompt for the GPT-3.5 API
-        prompt = "Summarize the following Pandas DataFrame:\n" + DashB.to_string() + "\nSummary:"
 
+        dashboard_data = self.dataloader.get_dashboard_data(f"../data/dashboard/dash_board_data.json") \
+            if os.path.exists(f"../data/dashboard/dash_board_data.json") else None
+        DashB = pd.DataFrame(dashboard_data)
+        prompt = "Summarize the following Pandas DataFrame:\n" + DashB.to_string() + "\nSummary:"
         # Set up the headers with the API key
         headers = {'Authorization': f'Bearer {self.api_key}'}
 
