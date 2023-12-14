@@ -2,7 +2,12 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-
+from src.ui.gradescope import Gradescope
+from src.ui.dashboard import Dashboard
+from src.ui.piazza import Piazza
+from src.ui.course_info import CourseInfo
+from src.ui.student_info import StudentInfo
+from src.ui.moodle import Moodle
 class TestStreamlitAllMenu(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
