@@ -1,5 +1,6 @@
 import streamlit as st
 from database.dataloader import Dataloader
+from database.firebase_data_download import DownloadDataFirebase
 from ui.menu import Menu
 from ui.gradescope import Gradescope
 from ui.dashboard import Dashboard
@@ -15,11 +16,12 @@ class Server:
         self.student_id = student_id
         self.all_courses = ["lang101", "math314", "phys999"]
         self.courses = [x for x in self.all_courses if str(self.student_id) in Dataloader.get_course_enrollment(f"../data/moodle/{x}.json")]
-        
+        self._dataload()
+        self._page_call()
+    def _dataload(self):
         self.dataloader = Dataloader(self.student_id)
-        
         self.menu = Menu()
-        self.dashboard_data = self.dataloader.get_dashboard_data(f"../data/dashboard/dash_board_data.json")\
+        self.dashboard_data = self.dataloader.get_dashboard_data(f"../data/dashboard/dashboard.json")\
                              if os.path.exists(f"../data/dashboard/dash_board_data.json") else None
 
         self.piazza_data = {course : 
@@ -34,6 +36,7 @@ class Server:
                             (self.dataloader.get_moodle_data(f"../data/moodle/{course}.json") 
                              if os.path.exists(f"../data/moodle/{course}.json") else None)
                             for course in self.courses}
+    def _page_call(self):
         self.piazza = Piazza(self.courses, self.piazza_data)
         self.gradescope = Gradescope(self.courses, self.gradescope_data)
         self.dashboard = Dashboard(self.dashboard_data[str(self.student_id)])
@@ -42,6 +45,11 @@ class Server:
         self.moodle = Moodle(self.courses, self.moodle_data)
         self.menu.display()
         self.display_loop()
+
+    def __download_data(self):
+        download_data_firebase = DownloadDataFirebase()
+        download_data_firebase.download_all_json()
+        download_data_firebase.download_csv()
 
     def display_loop(self):
         if st.session_state['choose'] == "Dashboard":
