@@ -4,13 +4,20 @@ sys.path.append('../')
 import streamlit as st
 from ui.page import Page
 
-# st.set_page_config(layout="wide")
 class Menu(Page):
+    """
+    The Page is the Menu page, which always shows and has links between the pages.
 
-    def __init__(self):
-        pass
+    ...
+
+    Methods
+    -------
+    display()
+        Displays the menu onto the screen for the student to see.
+    """
 
     def display(self):
+        """Displays the menu onto the screen for the student to see."""
         if 'choose' not in st.session_state:
             st.session_state['choose'] = None
         with st.sidebar:

@@ -5,12 +5,24 @@ from yaml.loader import SafeLoader
 from database.dataloader import Dataloader
 
 class Authenticator:
+    """
+    The authenticator object which handles the authentication process before 
+    allowing the user to access their information.
 
-    def __init__(self):
-        pass
+    ...
+
+    Methods
+    -------
+    authenticate()
+        This method begins the authentication process, verifying the 
+        user's identity and returning their student id if their credentials are valid.
+    """
     
     def authenticate(self):
-        st.set_page_config(layout="wide")
+        """
+        This method begins the authentication process, verifying the 
+        user's identity and returning their student id if their credentials are valid.
+        """
         with open('../data/config.yaml') as file:
             config = yaml.load(file, Loader=SafeLoader)
 
