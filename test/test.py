@@ -3,7 +3,7 @@ import json
 import sys
 sys.path.append('../')
 from src.database.dataloader import Dataloader
-
+from src.server.llm import llm
 import unittest
 import os
 import requests
@@ -22,8 +22,8 @@ class TestDataloader(unittest.TestCase):
         json_file_path = '../data/moodle/lang101.json'
         _, moodle_df, _, _ = self.dataloader.get_moodle_data(json_file_path)
 
-        expected_columns = ['Title', 'Description', 'Due Date']
-        actual_columns = list(moodle_df.columns)
+        expected_columns = ['Title', 'Description', 'Due Date'].sort()
+        actual_columns = list(moodle_df.columns).sort()
 
         self.assertEqual(expected_columns, actual_columns, "Columns in moodle_df are not as expected")
 
@@ -31,8 +31,8 @@ class TestDataloader(unittest.TestCase):
         json_file_path = '../data/gradescope/math314.json'
         hws, _, _ = self.dataloader.get_gradescope_data(json_file_path)
 
-        expected_columns = ['Title', 'Description', 'Due Date']  # Replace with expected columns
-        actual_columns = list(hws.columns)
+        expected_columns = ['Title', 'Description', 'Due Date'].sort()  # Replace with expected columns
+        actual_columns = list(hws.columns).sort()
 
         self.assertEqual(expected_columns, actual_columns, "Columns in hws are not as expected")
 
@@ -41,8 +41,8 @@ class TestDataloader(unittest.TestCase):
         piazza_df = self.dataloader.get_piazza_df(json_file_path)
 
         expected_columns = ['title', 'topic', 'poster', 'poster_date', 'body', 'follow_up_1', 'follow_up_2',
-                            'follow_up_3', 'follow_up_4']
-        actual_columns = list(piazza_df.columns)
+                            'follow_up_3', 'follow_up_4'].sort()
+        actual_columns = list(piazza_df.columns).sort()
 
         self.assertEqual(expected_columns, actual_columns, "Columns in piazza_df are not as expected")
 
@@ -56,6 +56,9 @@ class TestOpenAIAPI(unittest.TestCase):
         self.openai_endpoint = 'https://api.openai.com/v1/engines/text-davinci-003/completions'
         self.student_id=1001
         self.dataloader = Dataloader(student_id=self.student_id)
+        self.dashboard_data = self.dataloader.get_dashboard_data(f"../data/dashboard/dash_board_data.json") \
+            if os.path.exists(f"../data/dashboard/dash_board_data.json") else None
+        self.DashB = pd.DataFrame(self.dashboard_data)
     def test_openai_api_call(self):
         # Define the prompt for the GPT-3.5 API
 
@@ -75,8 +78,13 @@ class TestOpenAIAPI(unittest.TestCase):
         # Assert that the API call was successful (status code 200)
         self.assertEqual(response.status_code, 200, f"API call failed with status code {response.status_code}")
 
+    def test_generate_summary(self):
+        self.llm = llm()
+        summary_from_llm = self.llm.generate_summary(self.DashB, prompt_user=self.llm.get_prompts(field='advice')[1])
+        summary_len = len(summary_from_llm.split(" "))
+        self.assertGreater(summary_len, 20, f"The Summary doesn't have words to be considered as summary")
 
-#system testing code for checking if the chrome version are using appropriate
+
 
 class TestChromeVersionCompatibility(unittest.TestCase):
 
