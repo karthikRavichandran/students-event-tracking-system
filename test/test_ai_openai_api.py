@@ -19,10 +19,10 @@ class TestOpenAIAPI(unittest.TestCase):
             if os.path.exists(f"../data/dashboard/dash_board_data.json") else None
         self.DashB = pd.DataFrame(self.dashboard_data)
     def test_generate_summary(self):
-        # self.llm = llm()
-        # summary_from_llm = self.llm.generate_summary(self.DashB, prompt_user=self.llm.get_prompts(field='advice')[1])
-        # summary_len = len(summary_from_llm.split(" "))
-        summary_len = 10
+        self.llm = llm()
+        summary_from_llm = self.llm.generate_summary(self.DashB, prompt_user=self.llm.get_prompts(field='advice')[1])
+        summary_len = len(summary_from_llm.split(" "))
+        # summary_len = 10
         self.assertGreater(summary_len, 5, f"The Summary doesn't have words to be considered as summary")
 
 
