@@ -28,10 +28,34 @@ def export_firestore_collection_to_csv(collection_name, csv_file_path, service_a
 
     print(f"CSV file '{csv_file_path}' has been created with Firestore data.")
 
-# Example usage:
-collection_name = 'students' 
-csv_file_path = 'data.csv'  
-service_account_key = 'serviceAccount.json'  
 
-#  Ecapsulating this functionality, making it reusable and modular
-export_firestore_collection_to_csv(collection_name, csv_file_path, service_account_key)
+# For downloading the json from firestore DB
+
+import json
+from firebase_admin import credentials, firestore, initialize_app
+
+# Initialize Firestore with credentials
+#cred = credentials.Certificate('serviceAccount.json')  # Replace with your service account key
+#firebase_app = initialize_app(cred)
+db = firestore.client()
+
+# Replace 'your_collection_name' with the name of your Firestore collection
+collection_name = 'test'
+
+# Get all documents from the specified collection
+collection_ref = db.collection(collection_name)
+documents = collection_ref.stream()
+
+# Define the path where you want to save the JSON file
+json_file_path = 'gradescope_math.json'  # Replace with your desired path and file name
+
+# Extract Firestore data and write it to a JSON file
+data_to_export = {}
+for doc in documents:
+    doc_data = doc.to_dict()
+    data_to_export[doc.id] = doc_data
+
+with open(json_file_path, 'w') as json_file:
+    json.dump(data_to_export, json_file, indent=4)
+
+print(f"JSON file '{json_file_path}' has been created with Firestore data.")
