@@ -7,18 +7,57 @@ from server.llm import generate_summary
 import time
 
 class Piazza(Page):
+    """
+    The Page is the Piazza page, which shows all the relevant Piazza info for each course.
+
+    ...
+
+    Attributes
+    ----------
+    courses : List
+        A list of courses which the student is enrolled in for display
+    dfs : dict
+        A dict representing a mapping from course name to course information from piazza for each class.
+
+    Methods
+    -------
+    display()
+        Displays the piazza webpage onto the screen for the student to see.
+    display_course(df, course)
+        Displays the given course information onto the screen.
+    piazza_LLM_sample_caption(course)
+        Display the LLM sample caption for each course.
+    """
 
     def __init__(self, courses, dfs):
+        """
+        Parameters
+        ----------
+        courses : List
+            A list of courses which the student is enrolled in for display
+        dfs : dict
+            A dict representing a mapping from course name to course information from moodle for each class.
+        """
         self.courses = courses
         self.dfs = dfs
 
     def display(self):
+        """Displays the piazza webpage onto the screen for the student to see."""
         for course in self.courses:
             st.subheader(f'_Discussion from piazza for {course}_  :orange[TOP Discussions] :coffee:',divider='rainbow')
             self.display_course(self.dfs[course], course)
-             # TODO
 
     def display_course(self, df, course):
+        """
+        Displays the given course information onto the screen.
+
+        Parameters
+        ----------
+        df : pandas.Dataframe
+            The piazza information for this course
+        course : str
+            The name of the course
+        """
         st.caption('Homework Description and due date')
         st.dataframe(
             df,
@@ -47,6 +86,14 @@ class Piazza(Page):
         # with c1:
 
     def piazza_LLM_sample_caption(self, course):
+        """
+        Display the LLM sample caption for each course.
+
+        Parameters
+        ----------
+        course : str
+            The name of the course
+        """
         if course == 'lang101':
             sample_caption = '''
                 1. Poster Alice asked for excused absence from class due to illness and received a positive response from the professor.

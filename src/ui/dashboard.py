@@ -2,22 +2,40 @@ import streamlit as st
 import sys
 sys.path.append('../')
 import pandas as pd
-import random
 import time
 from ui.page import Page
 from server.llm import generate_summary, get_prompts
 
 class Dashboard(Page):
+    """
+    The Page is the dashboard page, which shows a summary of all the materials for the student.
+
+    ...
+
+    Attributes
+    ----------
+    DashB: pandas.Dataframe
+        This is the dashboard information for the student.
+
+    Methods
+    -------
+    display()
+        Displays the dashboard webpage onto the screen for the student to see.
+
+    """
 
     def __init__(self, dashboard_data):
+        """
+        Parameters
+        ----------
+        dashboard_data : dict
+            This is the dashboard information for the student.
+        """
         self.DashB = pd.DataFrame(dashboard_data)
 
 
-    def display(self, ):
-
-
-        # Space out the maps so the first one is 2x the size of the other three
-        # c1, c2, c3, c4 = st.columns((2, 1, 1, 1))
+    def display(self):
+        """Displays the dashboard webpage onto the screen for the student to see."""
         st.subheader('Analytics :chart_with_upwards_trend:')
         st.dataframe(
             self.DashB,
