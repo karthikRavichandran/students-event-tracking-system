@@ -43,7 +43,7 @@ class Piazza(Page):
         st.caption("AI Summary")
         with st.spinner('Wait for AI output...'):
             time.sleep(30)
-            txt = st.caption(f"{llm.generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
+            txt = st.caption(f"{self.llm.generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
         # self.piazza_LLM_sample_caption(course=course)
         # with c1:
 
