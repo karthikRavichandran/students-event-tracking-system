@@ -3,7 +3,7 @@ import sys
 sys.path.append('../')
 # from server.llm import generate_summary, get_prompts
 from ui.page import Page
-from server.llm import generate_summary
+from server.llm import llm
 import time
 
 class Piazza(Page):
@@ -40,6 +40,7 @@ class Piazza(Page):
         """
         self.courses = courses
         self.dfs = dfs
+        self.llm = llm()
 
     def display(self):
         """Displays the piazza webpage onto the screen for the student to see."""
@@ -81,7 +82,7 @@ class Piazza(Page):
         st.caption("AI Summary")
         with st.spinner('Wait for AI output...'):
             time.sleep(30)
-            txt = st.caption(f"{generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
+            txt = st.caption(f"{self.llm.generate_summary(df, prompt_user='Generate summary for top 3 post based on date and professor response. Give the summary in points')}")
         # self.piazza_LLM_sample_caption(course=course)
         # with c1:
 

@@ -4,7 +4,8 @@ sys.path.append('../')
 import pandas as pd
 import time
 from ui.page import Page
-from server.llm import generate_summary, get_prompts
+# from server.llm import generate_summary, get_prompts
+from server.llm import llm
 
 class Dashboard(Page):
     """
@@ -32,6 +33,7 @@ class Dashboard(Page):
             This is the dashboard information for the student.
         """
         self.DashB = pd.DataFrame(dashboard_data)
+        self.llm = llm()
 
 
     def display(self):
@@ -70,7 +72,7 @@ class Dashboard(Page):
         st.subheader('_Advice from AI_', divider='rainbow')
         with st.spinner('Wait for AI output...'):
             time.sleep(30)
-            txt = st.caption(f"{generate_summary(self.DashB, prompt_user=get_prompts(field='advice')[1])}")
+            txt = st.caption(f"{self.llm.generate_summary(self.DashB, prompt_user=self.llm.get_prompts(field='advice')[1])}")
         # st.caption(
         #     '''
         #     1. Math314: Make sure to allocate enough time to review the material from Chapter 1 to Chapter 7 (5 days) for the mid-term exam, as the critical level is quite high.
